@@ -1,18 +1,31 @@
 import { Router } from "express";
-import { createNote } from "../../app/stories/note/createNote";
-import { deleteNote } from "../../app/stories/note/deleteNote";
-import { getAllNotes } from "../../app/stories/note/getAllNotes";
-import { getNoteById } from "../../app/stories/note/getNoteByID";
-import { updateNote } from "../../app/stories/note/updateNotes";
+import { createNote } from "../../useCases/note/createNote";
+import { deleteNote } from "../../useCases/note/deleteNote";
+import { getAllNotes } from "../../useCases/note/getAllNotes";
+import { getNoteById } from "../../useCases/note/getNoteByID";
+import { updateNote } from "../../useCases/note/updateNotes";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 export const noteRouter = Router();
 
-noteRouter.post("/", createNote);
+noteRouter.post(
+  "/",
+  // ensureAuthenticated,
+  createNote
+);
 
 noteRouter.get("/", getAllNotes);
 
 noteRouter.get("/:id", getNoteById);
 
-noteRouter.put("/", updateNote);
+noteRouter.put(
+  "/",
+  // ensureAuthenticated,
+  updateNote
+);
 
-noteRouter.delete("/:id", deleteNote);
+noteRouter.delete(
+  "/:id",
+  // ensureAuthenticated,
+  deleteNote
+);
