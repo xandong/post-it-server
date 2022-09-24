@@ -10,22 +10,10 @@ export const userRouter = Router();
 
 userRouter.get("/", getAllUsers);
 
-userRouter.get(
-  "/:id",
-  //  ensureAuthenticated,
-  getUserById
-);
+userRouter.get("/:id", ensureAuthenticated, getUserById);
 
 userRouter.post("/", createUser);
 
-userRouter.put(
-  "/",
-  // ensureAuthenticated,
-  updateUser
-);
+userRouter.put("/", ensureAuthenticated, updateUser);
 
-userRouter.delete(
-  "/:id",
-  // ensureAuthenticated,
-  deleteUser
-);
+userRouter.delete("/:id", ensureAuthenticated, deleteUser);
