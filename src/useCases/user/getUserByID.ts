@@ -1,12 +1,17 @@
 import { Request, Response } from "express";
-import { prisma } from "../../prisma/PrismaClient";
+import { prisma } from "../../api/middlewares/prisma/PrismaClient";
 
 export async function getUserById(req: Request, res: Response) {
   const { id } = req.params;
 
-  const user = await prisma.user.findUnique({ where: { id } });
+  try {
+    const user = await prisma.user.findUnique({ where: { id } });
 
-  if (user) return res.status(200).json({ user });
+    if (!user)
+      return res.status(404).json({ message: "Usuário não encontrado." });
 
-  return res.status(404).json({ message: "Usuário não encontrado." });
+    return res.status(200).json({ user });
+  } catch (error) {
+    return res.status(500).json({ message: "Erro. Tente novamente." });
+  }
 }

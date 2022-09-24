@@ -1,16 +1,20 @@
 import { Request, Response } from "express";
 import { hash } from "bcryptjs";
 
-import { prisma } from "../../prisma/PrismaClient";
+import { prisma } from "../../api/middlewares/prisma/PrismaClient";
 import { UserModel } from "../../core/models/UserModel";
 
 export async function updateUser(req: Request, res: Response) {
   const { id, name, email, password }: UserModel = req.body;
 
-  const userExists = await prisma.user.findUnique({ where: { id } });
+  try {
+    const userExists = await prisma.user.findUnique({ where: { id } });
 
-  if (!userExists)
-    return res.status(404).json({ message: "Erro. Usuário não encontrado" });
+    if (!userExists)
+      return res.status(404).json({ message: "Usuário não encontrado." });
+  } catch (error) {
+    return res.status(500).json({ message: "Erro. Tente novamente." });
+  }
 
   const newData: any = new Object();
 
@@ -38,6 +42,6 @@ export async function updateUser(req: Request, res: Response) {
 
     return res.status(200).json({ user: newUser });
   } catch (error) {
-    return res.status(400).json({ message: "Erro. Tente novamente." });
+    return res.status(500).json({ message: "Erro. Tente novamente." });
   }
 }

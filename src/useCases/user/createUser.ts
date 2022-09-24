@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { prisma } from "../../prisma/PrismaClient";
-import { UserModel } from "../../core/models/UserModel";
 import { hash } from "bcryptjs";
+import { prisma } from "../../api/middlewares/prisma/PrismaClient";
+import { UserModel } from "../../core/models/UserModel";
 
 export async function createUser(req: Request, res: Response) {
   const { name, email, password }: UserModel = req.body;
@@ -14,10 +14,17 @@ export async function createUser(req: Request, res: Response) {
   if (!formatEmailValid.test(email))
     return res.status(400).json({ message: "Email inválido" });
 
-  if (await prisma.user.findUnique({ where: { email } }))
-    return res.status(400).json({ message: "Email já cadastrado" });
+  try {
+    const checkIfEmailAlreadyExists = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (checkIfEmailAlreadyExists)
+      return res.status(400).json({ message: "Email já cadastrado" });
+  } catch (error) {
+    return res.status(501).json({ message: "Erro. Tente novamente" });
+  }
 
-  if (password.length < 8 || password.length > 30)
+  if (password.length < 8)
     return res.status(400).json({ message: "Senha inválida" });
 
   const passwordHash = await hash(password, 8);
@@ -26,10 +33,10 @@ export async function createUser(req: Request, res: Response) {
     await prisma.user.create({
       data: { name, email, password: passwordHash },
     });
+
+    return res.status(201).json({ message: "Usuário cadastrado com sucesso." });
   } catch (error) {
     console.log(error);
-    return res.status(502).json({ message: "Erro ao cadastrar" });
+    return res.status(500).json({ message: "Erro. Tente novamente" });
   }
-
-  return res.status(201).json({ message: "Usuário cadastrado com sucesso" });
 }

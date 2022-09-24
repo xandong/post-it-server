@@ -8,15 +8,15 @@ import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 export const noteRouter = Router();
 
+noteRouter.get("/", getAllNotes);
+
+noteRouter.get("/:id", getNoteById);
+
 noteRouter.post(
   "/",
   // ensureAuthenticated,
   createNote
 );
-
-noteRouter.get("/", getAllNotes);
-
-noteRouter.get("/:id", getNoteById);
 
 noteRouter.put(
   "/",
