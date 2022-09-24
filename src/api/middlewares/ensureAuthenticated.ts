@@ -1,4 +1,4 @@
-import { NextFunction, Request, response, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
 export async function ensureAuthenticated(
@@ -17,7 +17,6 @@ export async function ensureAuthenticated(
 
     return next();
   } catch (err) {
-    console.log(err);
     res.status(401).json({ message: "não autorizado" });
   }
 }
