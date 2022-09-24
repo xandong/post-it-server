@@ -12,20 +12,8 @@ noteRouter.get("/", getAllNotes);
 
 noteRouter.get("/:id", getNoteById);
 
-noteRouter.post(
-  "/",
-  // ensureAuthenticated,
-  createNote
-);
+noteRouter.post("/", ensureAuthenticated, createNote);
 
-noteRouter.put(
-  "/",
-  // ensureAuthenticated,
-  updateNote
-);
+noteRouter.put("/", ensureAuthenticated, updateNote);
 
-noteRouter.delete(
-  "/:id",
-  // ensureAuthenticated,
-  deleteNote
-);
+noteRouter.delete("/:id", ensureAuthenticated, deleteNote);

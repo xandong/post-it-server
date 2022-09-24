@@ -26,7 +26,7 @@ export async function Authenticated(req: Request, res: Response) {
 
   const token = sign({}, key, {
     subject: userSearched.id,
-    expiresIn: 120,
+    expiresIn: "1d",
   });
 
   return res.status(200).json({ token });
