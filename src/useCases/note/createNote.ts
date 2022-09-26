@@ -26,8 +26,6 @@ export async function createNote(req: Request, res: Response) {
   try {
     const date = new Date();
 
-    console.log(date);
-
     await prisma.note.create({
       data: {
         authorId,
