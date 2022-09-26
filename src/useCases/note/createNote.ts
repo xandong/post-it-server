@@ -15,6 +15,7 @@ export async function createNote(req: Request, res: Response) {
     return res.status(400).json({ message: "Id do author é necessário." });
 
   let author: User | null | undefined;
+
   try {
     author = await prisma.user.findUnique({ where: { id: authorId } });
 
@@ -29,6 +30,7 @@ export async function createNote(req: Request, res: Response) {
     await prisma.note.create({
       data: {
         authorId,
+        authorName: author!.name,
         date,
         title,
         description,
