@@ -8,7 +8,7 @@ import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 export const userRouter = Router();
 
-userRouter.get("/", getAllUsers);
+// userRouter.get("/", getAllUsers);
 
 userRouter.get("/:id", ensureAuthenticated, getUserById);
 
