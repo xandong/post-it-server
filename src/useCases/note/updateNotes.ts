@@ -28,6 +28,10 @@ export async function updateNote(req: Request, res: Response) {
     newData.content = content;
   }
 
+  if (title || description || content) {
+    newData.date = new Date();
+  }
+
   try {
     const content = await prisma.note.update({
       where: { id },
