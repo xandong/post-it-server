@@ -8,7 +8,7 @@ export async function ensureAuthenticated(
 ) {
   const authToken = req.headers.authorization;
 
-  if (!authToken) return res.status(400).json({ message: "não autorizado" });
+  if (!authToken) return res.status(401).json({ message: "Não autenticado." });
 
   const token = authToken.split(" ")[1];
 
@@ -17,6 +17,6 @@ export async function ensureAuthenticated(
 
     return next();
   } catch (err) {
-    res.status(401).json({ message: "não autorizado" });
+    res.status(403).json({ message: "Não autorizado." });
   }
 }

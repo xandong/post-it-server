@@ -13,7 +13,7 @@ export async function updateUser(req: Request, res: Response) {
     if (!userExists)
       return res.status(404).json({ message: "Usuário não encontrado." });
   } catch (error) {
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 
   const newData: any = new Object();
@@ -40,8 +40,8 @@ export async function updateUser(req: Request, res: Response) {
       data: newData,
     });
 
-    return res.status(200).json({ user: newUser });
+    return res.status(201).json({ user: newUser });
   } catch (error) {
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 }

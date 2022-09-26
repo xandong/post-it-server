@@ -7,6 +7,6 @@ export async function getAllUsers(req: Request, res: Response) {
 
     return res.status(200).json({ users });
   } catch (error) {
-    return res.status(501).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 }

@@ -7,6 +7,6 @@ export async function getAllNotes(req: Request, res: Response) {
 
     res.status(200).json({ notes });
   } catch (error) {
-    return res.status(501).json({ message: "Erro: tente novamente" });
+    return res.status(502).json({ message: "Erro externo. Tente novamente" });
   }
 }

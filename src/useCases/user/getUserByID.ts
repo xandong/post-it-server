@@ -12,6 +12,6 @@ export async function getUserById(req: Request, res: Response) {
 
     return res.status(200).json({ user });
   } catch (error) {
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 }

@@ -21,7 +21,7 @@ export async function createUser(req: Request, res: Response) {
     if (checkIfEmailAlreadyExists)
       return res.status(400).json({ message: "Email já cadastrado" });
   } catch (error) {
-    return res.status(501).json({ message: "Erro. Tente novamente" });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 
   if (password.length < 8)
@@ -37,6 +37,6 @@ export async function createUser(req: Request, res: Response) {
     return res.status(201).json({ message: "Usuário cadastrado com sucesso." });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Erro. Tente novamente" });
+    return res.status(502).json({ message: "Erro externo. Tente novamente" });
   }
 }

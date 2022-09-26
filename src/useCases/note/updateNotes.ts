@@ -11,7 +11,7 @@ export async function updateNote(req: Request, res: Response) {
     if (!isNoteExists)
       return res.status(404).json({ message: "Nota não encontrada." });
   } catch (error) {
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 
   const newData: any = new Object();
@@ -34,8 +34,8 @@ export async function updateNote(req: Request, res: Response) {
       data: newData,
     });
 
-    return res.status(200).json({ note: content });
+    return res.status(201).json({ note: content });
   } catch (error) {
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 }

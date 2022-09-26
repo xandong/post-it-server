@@ -11,7 +11,7 @@ export async function deleteUser(req: Request, res: Response) {
       return res.status(404).json({ message: "Usuário não encontrado." });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 
   try {
@@ -20,6 +20,6 @@ export async function deleteUser(req: Request, res: Response) {
     return res.status(200).json({ message: `Usuário excluído com sucesso.` });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 }

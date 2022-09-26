@@ -11,6 +11,6 @@ export async function getNoteById(req: Request, res: Response) {
 
     return res.status(200).json({ note });
   } catch (error) {
-    return res.status(500).json({ message: "Erro. Tente novamente." });
+    return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
 }
