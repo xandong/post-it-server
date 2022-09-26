@@ -30,7 +30,7 @@ export async function Authenticated(req: Request, res: Response) {
       expiresIn: "1d",
     });
 
-    return res.status(200).json({ token });
+    return res.status(200).json({ user: userSearched, token });
   } catch (error) {
     return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
