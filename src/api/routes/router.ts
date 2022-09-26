@@ -5,7 +5,9 @@ import { userRouter } from "./userRouter";
 
 export const router = Router();
 
-router.get("/", (req, res) => res.json({ message: "Bem vindo a API!" }));
+router.get("/", (req, res) =>
+  res.json({ message: "Bem vindo a API Post it!" })
+);
 router.use("/users", userRouter);
 router.use("/notes", noteRouter);
 router.post("/auth", Authenticated);
