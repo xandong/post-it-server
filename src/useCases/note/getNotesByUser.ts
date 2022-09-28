@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { prisma } from "../../api/middlewares/prisma/PrismaClient";
 
-export async function getUserByID(req: Request, res: Response) {
+export async function getNotesByUser(req: Request, res: Response) {
   const { id } = req.params;
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findMany({
       where: { id },
-      select: { name: true, email: true, notes: true },
+      select: { notes: { orderBy: { date: "desc" } }, _count: true },
     });
 
     if (!user)

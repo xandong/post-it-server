@@ -3,7 +3,7 @@ import { prisma } from "../../api/middlewares/prisma/PrismaClient";
 
 export async function getAllNotes(req: Request, res: Response) {
   try {
-    const notes = await prisma.note.findMany();
+    const notes = await prisma.note.findMany({ orderBy: { date: "desc" } });
 
     res.status(200).json({ notes });
   } catch (error) {
