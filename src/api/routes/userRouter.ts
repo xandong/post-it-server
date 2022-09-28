@@ -1,19 +1,18 @@
 import { Router } from "express";
-import { createUser } from "../../useCases/user/createUser";
-import { deleteUser } from "../../useCases/user/deleteUser";
-import { getAllNotesByUser } from "../../useCases/user/getAllNotesByUser";
-import { getAllUsers } from "../../useCases/user/getAllUsers";
-import { getUserById } from "../../useCases/user/getUserByID";
-import { updateUser } from "../../useCases/user/updateUser";
+
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+
+import { createUser } from "../../useCases/user/createUser";
+import { getUserByID } from "../../useCases/user/getUserByID";
+import { getAllUsers } from "../../useCases/user/getAllUsers";
+import { updateUser } from "../../useCases/user/updateUser";
+import { deleteUser } from "../../useCases/user/deleteUser";
 
 export const userRouter = Router();
 
 userRouter.get("/", getAllUsers);
 
-userRouter.get("/:id", ensureAuthenticated, getUserById);
-
-userRouter.get("/notes/:id", getAllNotesByUser);
+userRouter.get("/:id", ensureAuthenticated, getUserByID);
 
 userRouter.post("/", createUser);
 
