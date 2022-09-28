@@ -11,7 +11,16 @@ export async function Authenticated(req: Request, res: Response) {
     return res.status(400).json({ message: "Campos obrigatórios" });
 
   try {
-    const userSearched = await prisma.user.findUnique({ where: { email } });
+    const userSearched = await prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        notes: true,
+        password: true,
+      },
+    });
 
     if (!userSearched) {
       return res.status(400).json({ message: "Email ou senha incorreto" });
@@ -30,7 +39,14 @@ export async function Authenticated(req: Request, res: Response) {
       expiresIn: "1d",
     });
 
-    return res.status(200).json({ user: userSearched, token });
+    return res.status(200).json({
+      token,
+      user: {
+        id: userSearched.id,
+        name: userSearched.name,
+        email: userSearched.email,
+      },
+    });
   } catch (error) {
     return res.status(502).json({ message: "Erro externo. Tente novamente." });
   }
