@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { NoteModel } from "../../core/models/NoteModel";
 import { prisma } from "../../api/middlewares/prisma/PrismaClient";
-import { User } from "@prisma/client";
+import { UserModel } from "../../core/models/UserModel";
 
 export async function createNote(req: Request, res: Response) {
   const { title, description, content, authorId }: NoteModel = req.body;
@@ -14,7 +14,7 @@ export async function createNote(req: Request, res: Response) {
   if (!authorId)
     return res.status(400).json({ message: "Id do author é necessário." });
 
-  let author: User | null | undefined;
+  let author: UserModel | null;
 
   try {
     author = await prisma.user.findUnique({ where: { id: authorId } });
