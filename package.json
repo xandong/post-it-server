@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node ./build/server.js",
+    "start": "node ./build/server.js --omit=dev",
     "dev": "nodemon src/server.ts"
   },
   "keywords": [],
