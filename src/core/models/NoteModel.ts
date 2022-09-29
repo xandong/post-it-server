@@ -5,4 +5,5 @@ export interface NoteModel {
   authorId: string;
   description: string;
   content: string;
+  link?: string;
 }

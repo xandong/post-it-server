@@ -23,7 +23,8 @@ model Note {
   date        DateTime
   title       String
   description String
-  content     String?
+  content     String
+  link        String?
   author      User @relation(fields: [authorId], references: [id])
   authorId    String 
   authorName  String

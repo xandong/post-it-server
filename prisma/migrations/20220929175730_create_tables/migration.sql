@@ -12,7 +12,8 @@ CREATE TABLE "notes" (
     "date" DATETIME NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "content" TEXT,
+    "content" TEXT NOT NULL,
+    "link" TEXT,
     "authorId" TEXT NOT NULL,
     "authorName" TEXT NOT NULL,
     CONSTRAINT "notes_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

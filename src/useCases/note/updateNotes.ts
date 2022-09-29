@@ -3,7 +3,7 @@ import { prisma } from "../../api/middlewares/prisma/PrismaClient";
 import { NoteModel } from "../../core/models/NoteModel";
 
 export async function updateNote(req: Request, res: Response) {
-  const { id, title, description, content }: NoteModel = req.body;
+  const { id, title, description, content, link }: NoteModel = req.body;
 
   try {
     const isNoteExists = await prisma.note.findUnique({ where: { id } });
@@ -28,7 +28,11 @@ export async function updateNote(req: Request, res: Response) {
     newData.content = content;
   }
 
-  if (title || description || content) {
+  if (link) {
+    newData.link = link;
+  }
+
+  if (title || description || content || link) {
     newData.date = new Date();
   }
 
