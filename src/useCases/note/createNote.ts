@@ -4,7 +4,7 @@ import { prisma } from "../../api/middlewares/prisma/PrismaClient";
 import { UserModel } from "../../core/models/UserModel";
 
 export async function createNote(req: Request, res: Response) {
-  const { title, description, content, authorId }: NoteModel = req.body;
+  const { title, description, content, authorId, link }: NoteModel = req.body;
 
   if (!title || !description)
     return res
@@ -35,6 +35,7 @@ export async function createNote(req: Request, res: Response) {
         title,
         description,
         content,
+        link,
       },
     });
 
